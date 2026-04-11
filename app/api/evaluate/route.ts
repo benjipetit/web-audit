@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import * as cheerio from 'cheerio';
 
 // Define the evaluation rules
 export const EVALUATION_RULES = [
@@ -14,13 +15,6 @@ export const EVALUATION_RULES = [
     name: 'Meta Description',
     description: 'Page must have a meta description tag. Improves SEO and click-through rates.',
     regex: /<meta\s+name=["']description["']\s+content=["'](.+?)["']/i,
-    severity: 'high' as const,
-  },
-  {
-    id: 'h1-tag',
-    name: 'H1 Heading',
-    description: 'Page must have at least one H1 tag. Important for accessibility and SEO hierarchy.',
-    regex: /<h1[^>]*>(.+?)<\/h1>/i,
     severity: 'high' as const,
   },
   {
@@ -146,6 +140,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const $ = cheerio.load(content);
+
     // Evaluate all rules
     const results = EVALUATION_RULES.map((rule) => ({
       id: rule.id,
@@ -154,6 +150,15 @@ export async function POST(request: NextRequest) {
       severity: rule.severity,
       passed: rule.regex.test(content),
     }));
+    results.push(
+      {
+        id: 'h1-tag',
+        name: 'H1 Heading',
+        description: 'Page must have at least one H1 tag. Important for accessibility and SEO hierarchy.',
+        severity: 'high' as const,
+        passed: $('h1').length == 1
+      }
+    );
 
     const passedCount = results.filter((r) => r.passed).length;
     const totalCount = results.length;
