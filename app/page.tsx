@@ -48,13 +48,13 @@ export default function Home() {
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.error || 'An error occurred while evaluating the website');
+        setError(data.error || "Une erreur est survenue pendant l'audit du site");
         return;
       }
 
       setEvaluation(data);
     } catch (err) {
-      setError('Failed to connect to the server. Please try again.');
+      setError("Erreur de connexion au serveur. Merci de réessayer.");
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -67,10 +67,10 @@ export default function Home() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            Website Evaluator
+            Audit gratuit
           </h1>
           <p className="text-lg text-gray-600">
-            Audit your website for SEO, accessibility, and best practices
+          Audit gratuit et immédiat de votre site. Vérifiez que votre site suit les bonnes pratiques pour être visible.
           </p>
         </div>
 
@@ -88,7 +88,7 @@ export default function Home() {
               <AlertCircle className="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5" />
               <div>
                 <h3 className="font-semibold text-red-900 mb-1">
-                  Evaluation Failed
+                  Echec de l'audit
                 </h3>
                 <p className="text-red-700">{error}</p>
               </div>
@@ -102,7 +102,7 @@ export default function Home() {
             <div className="p-12 flex flex-col items-center justify-center gap-4">
               <Loader2 className="w-8 h-8 text-indigo-600 animate-spin" />
               <p className="text-gray-700 font-medium">
-                Evaluating your website...
+                Vérification en cours...
               </p>
             </div>
           </Card>

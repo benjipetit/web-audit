@@ -29,7 +29,7 @@ export default function URLForm({ onSubmit, isLoading }: URLFormProps) {
     <form onSubmit={handleSubmit} className="flex gap-2">
       <Input
         type="url"
-        placeholder="Enter website URL (e.g., example.com or https://example.com)"
+        placeholder="Entrez une URL (ex: mon-site.fr ou https://mon-site.fr)"
         value={url}
         onChange={(e) => setUrl(e.target.value)}
         disabled={isLoading}
@@ -44,10 +44,10 @@ export default function URLForm({ onSubmit, isLoading }: URLFormProps) {
         {isLoading ? (
           <>
             <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-            Evaluating...
+            Vérification...
           </>
         ) : (
-          'Evaluate'
+          'Vérifier'
         )}
       </Button>
     </form>

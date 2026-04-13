@@ -7,8 +7,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Website Evaluator - SEO & Accessibility Audits',
-  description: 'Evaluate your website for SEO compliance, accessibility standards, and best practices. Get instant feedback on critical web standards.',
+  title: 'Audit rapide Bakpak',
+  description: "Évaluez la conformité de votre site web aux normes SEO, d'accessibilité et aux meilleures pratiques. Obtenez un retour immédiat sur les normes web essentielles.",
   generator: 'v0.app',
   icons: {
     icon: [

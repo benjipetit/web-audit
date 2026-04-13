@@ -66,7 +66,7 @@ export default function EvaluationResults({
       >
         <div className="p-8">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">
-            Overall Score
+            Score global
           </h2>
           <div className="flex items-center gap-6">
             <div>
@@ -74,7 +74,7 @@ export default function EvaluationResults({
                 {scorePercentage}%
               </div>
               <p className="text-gray-600 mt-2">
-                {score.passed} out of {score.total} checks passed
+                {score.passed} points de contrôle sur {score.total} vérifiés
               </p>
             </div>
             <div className="flex-1">
@@ -98,7 +98,7 @@ export default function EvaluationResults({
       {/* URL Card */}
       <Card className="shadow-lg">
         <div className="p-6 border-b border-gray-200">
-          <p className="text-sm text-gray-600 mb-2">Evaluated URL</p>
+          <p className="text-sm text-gray-600 mb-2">URL vérifiée</p>
           <p className="text-lg font-semibold text-gray-900 break-all">{url}</p>
         </div>
       </Card>
@@ -111,7 +111,7 @@ export default function EvaluationResults({
             <div className="p-6 border-b border-green-200 bg-green-50">
               <h3 className="text-lg font-semibold text-green-900 flex items-center gap-2">
                 <CheckCircle2 className="w-5 h-5" />
-                Passed Checks ({passedResults.length})
+                Points vérifiés ({passedResults.length})
               </h3>
             </div>
             <div className="divide-y">
@@ -128,7 +128,7 @@ export default function EvaluationResults({
             <div className="p-6 border-b border-red-200 bg-red-50">
               <h3 className="text-lg font-semibold text-red-900 flex items-center gap-2">
                 <XCircle className="w-5 h-5" />
-                Failed Checks ({failedResults.length})
+                Défauts constatés ({failedResults.length})
               </h3>
             </div>
             <div className="divide-y">
@@ -174,11 +174,11 @@ function ResultItem({ result, passed }: ResultItemProps) {
             {result.description}
           </p>
           {passed && (
-            <p className="text-green-700 text-sm mt-2 font-medium">✓ Detected</p>
+            <p className="text-green-700 text-sm mt-2 font-medium">✓ Détecté</p>
           )}
           {!passed && (
             <p className="text-red-700 text-sm mt-2 font-medium">
-              ✗ Not found - this could impact your website performance
+              ✗ Non trouvé - Il se peut que la performance de votre site soit affectée
             </p>
           )}
         </div>

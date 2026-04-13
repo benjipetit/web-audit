@@ -5,36 +5,36 @@ import * as cheerio from 'cheerio';
 export const EVALUATION_RULES = [
   {
     id: 'meta-title',
-    name: 'Meta Title Tag',
-    description: 'Page must have a meta title tag. Essential for SEO and browser tab display.',
+    name: "Balise 'title'",
+    description: "Une page doit avoir un titre. Il sert aux visiteurs, mais aussi au référencement naturel de votre site",
     regex: /<title[^>]*>(.+?)<\/title>/i,
     severity: 'critical' as const,
   },
   {
     id: 'meta-description',
     name: 'Meta Description',
-    description: 'Page must have a meta description tag. Improves SEO and click-through rates.',
+    description: "Une page doit une description. Elle optimise le référencement naturel de votre site",
     regex: /<meta\s+name=["']description["']\s+content=["'](.+?)["']/i,
     severity: 'high' as const,
   },
   {
     id: 'alt-text',
-    name: 'Image Alt Attributes',
-    description: 'Images should have alt text for accessibility. Helps screen readers and SEO.',
+    name: "Attribut 'alt' sur les images",
+    description: "Les images doivent comporter un texte alternatif pour faciliter l'accessibilité. Cela aide les lecteurs d'écran et le référencement naturel.",
     regex: /<img[^>]+alt=["']([^"']+)["']/i,
     severity: 'medium' as const,
   },
   {
     id: 'viewport',
-    name: 'Viewport Meta Tag',
-    description: 'Mobile viewport must be configured. Essential for responsive design and mobile SEO.',
+    name: "Balise meta 'viewport'",
+    description: "Votre site doit être adapté au mobile. Indispensable pour le 'responsive design' et le référencement mobile.",
     regex: /<meta\s+name=["']viewport["']/i,
     severity: 'critical' as const,
   },
   {
     id: 'charset',
-    name: 'Character Encoding',
-    description: 'Page must specify character encoding (UTF-8). Ensures proper text rendering.',
+    name: 'Encodage des caractères',
+    description: "La page doit spécifier l'encodage des caractères (UTF-8). Cela garantit un affichage correct du texte.",
     regex: /<meta\s+charset/i,
     severity: 'high' as const,
   },
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     // Validate URL format
     if (!url || typeof url !== 'string') {
       return NextResponse.json(
-        { error: 'URL is required' },
+        { error: 'Vous devez entrer une URL.' },
         { status: 400 }
       );
     }
@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
       urlObj = new URL(url);
     } catch {
       return NextResponse.json(
-        { error: 'Invalid URL format' },
+        { error: "Format d'URL invalide." },
         { status: 400 }
       );
     }
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
     // Only allow http and https
     if (!['http:', 'https:'].includes(urlObj.protocol)) {
       return NextResponse.json(
-        { error: 'Only HTTP and HTTPS URLs are allowed' },
+        { error: 'Seules les URLs HTTP et HTTPS sont autorisées.' },
         { status: 400 }
       );
     }
@@ -92,12 +92,12 @@ export async function POST(request: NextRequest) {
     } catch (error) {
       if (error instanceof Error && error.name === 'AbortError') {
         return NextResponse.json(
-          { error: 'Request timeout - page took too long to load' },
+          { error: "Chargement trop long. L'URL ne répond pas, ou répond trop lentement." },
           { status: 408 }
         );
       }
       return NextResponse.json(
-        { error: 'Failed to fetch URL' },
+        { error: 'Impossible de télécharger le contenu de cette URL' },
         { status: 400 }
       );
     }
@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
     const contentType = response.headers.get('content-type')?.toLowerCase() || '';
     if (!contentType.includes('text/html')) {
       return NextResponse.json(
-        { error: 'Content is not HTML. Only HTML pages are supported.' },
+        { error: "Le contenu de cette page n'est pas en HTML. L'audit web analyse seulement les pages web HTML." },
         { status: 400 }
       );
     }
@@ -125,7 +125,7 @@ export async function POST(request: NextRequest) {
       const contentLength = parseInt(contentLengthHeader, 10);
       if (contentLength > MAX_CONTENT_LENGTH) {
         return NextResponse.json(
-          { error: `Page too large (${(contentLength / 1024 / 1024).toFixed(1)}MB). Maximum 5MB allowed.` },
+          { error: `Page trop lourde (${(contentLength / 1024 / 1024).toFixed(1)}MB). Maximum 5MB autorisés.` },
           { status: 413 }
         );
       }
@@ -135,7 +135,7 @@ export async function POST(request: NextRequest) {
     const content = await response.text();
     if (content.length > MAX_CONTENT_LENGTH) {
       return NextResponse.json(
-        { error: `Page too large (${(content.length / 1024 / 1024).toFixed(1)}MB). Maximum 5MB allowed.` },
+        { error: `Page trop lourde (${(content.length / 1024 / 1024).toFixed(1)}MB). Maximum 5MB autorisés.` },
         { status: 413 }
       );
     }
@@ -153,8 +153,8 @@ export async function POST(request: NextRequest) {
     results.push(
       {
         id: 'h1-tag',
-        name: 'H1 Heading',
-        description: 'Page must have at least one H1 tag. Important for accessibility and SEO hierarchy.',
+        name: 'Titre H1',
+        description: "La page doit comporter au moins une balise H1. C'est important pour l'accessibilité et le référencement naturel.",
         severity: 'high' as const,
         passed: $('h1').length == 1
       }
@@ -175,7 +175,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Evaluation error:', error);
     return NextResponse.json(
-      { error: 'An unexpected error occurred' },
+      { error: 'Une erreur est survenue.' },
       { status: 500 }
     );
   }
