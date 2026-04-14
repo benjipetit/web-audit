@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
-import { AlertCircle, CheckCircle2, XCircle, Loader2 } from 'lucide-react';
+import { AlertCircle, CheckCircle2, XCircle, Loader2, ArrowUpRight } from 'lucide-react';
 import URLForm from '@/components/url-form';
 import EvaluationResults from '@/components/evaluation-results';
 
@@ -62,57 +62,70 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
-      <div className="max-w-3xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            Audit gratuit
-          </h1>
-          <p className="text-lg text-gray-600">
-          Audit gratuit et immédiat de votre site. Vérifiez que votre site suit les bonnes pratiques pour être visible.
-          </p>
-        </div>
-
-        {/* Form Card */}
-        <Card className="mb-8 shadow-lg">
-          <div className="p-8">
-            <URLForm onSubmit={handleSubmit} isLoading={isLoading} />
-          </div>
-        </Card>
-
-        {/* Error Message */}
-        {error && (
-          <Card className="mb-8 border-red-200 bg-red-50 shadow-lg">
-            <div className="p-6 flex items-start gap-4">
-              <AlertCircle className="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5" />
-              <div>
-                <h3 className="font-semibold text-red-900 mb-1">
-                  Echec de l'audit
-                </h3>
-                <p className="text-red-700">{error}</p>
-              </div>
-            </div>
-          </Card>
-        )}
-
-        {/* Loading State */}
-        {isLoading && (
-          <Card className="mb-8 shadow-lg">
-            <div className="p-12 flex flex-col items-center justify-center gap-4">
-              <Loader2 className="w-8 h-8 text-indigo-600 animate-spin" />
-              <p className="text-gray-700 font-medium">
-                Vérification en cours...
-              </p>
-            </div>
-          </Card>
-        )}
-
-        {/* Results */}
-        {evaluation && !isLoading && (
-          <EvaluationResults evaluation={evaluation} />
-        )}
+    <div id="hero-bg" className="relative">
+      <div className="bg absolute inset-0 z-0">
       </div>
-    </main>
+      <main className="min-h-screen p-6 z-1 relative">
+        <div className="max-w-3xl mx-auto flex items-center justify-between">
+          <a href="https://bakpak.fr">
+            <img src="logo_dark.svg" alt="" className="h-20"/>
+          </a>
+          <button className="btn btn-primary btn-outline">
+            Réserver un appel
+            <ArrowUpRight/>
+          </button>
+        </div>
+        <div className="max-w-3xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-bold text-base-content mb-2">
+              Audit gratuit
+            </h1>
+            <p className="text-lg text-base-content/70">
+            Audit gratuit et immédiat de votre site. Vérifiez que votre site suit les bonnes pratiques pour être visible.
+            </p>
+          </div>
+
+          {/* Form Card */}
+          <Card className="mb-8 shadow-lg bg-base-100">
+            <div className="p-8">
+              <URLForm onSubmit={handleSubmit} isLoading={isLoading} />
+            </div>
+          </Card>
+
+          {/* Error Message */}
+          {error && (
+            <Card className="mb-8 border-red-200 bg-red-50 shadow-lg">
+              <div className="p-6 flex items-start gap-4">
+                <AlertCircle className="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <h3 className="font-semibold text-red-900 mb-1">
+                    Echec de l'audit
+                  </h3>
+                  <p className="text-red-700">{error}</p>
+                </div>
+              </div>
+            </Card>
+          )}
+
+          {/* Loading State */}
+          {isLoading && (
+            <Card className="mb-8 shadow-lg">
+              <div className="p-12 flex flex-col items-center justify-center gap-4">
+                <Loader2 className="w-8 h-8 text-indigo-600 animate-spin" />
+                <p className="text-gray-700 font-medium">
+                  Vérification en cours...
+                </p>
+              </div>
+            </Card>
+          )}
+
+          {/* Results */}
+          {evaluation && !isLoading && (
+            <EvaluationResults evaluation={evaluation} />
+          )}
+        </div>
+      </main>
+    </div>
   );
 }

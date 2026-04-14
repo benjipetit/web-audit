@@ -62,7 +62,7 @@ export default function EvaluationResults({
     <div className="space-y-6">
       {/* Score Card */}
       <Card
-        className={`shadow-lg border-2 ${getScoreBgColor(scorePercentage)}`}
+        className={`bg-base-100 shadow-lg border-2 ${getScoreBgColor(scorePercentage)}`}
       >
         <div className="p-8">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">
@@ -96,7 +96,7 @@ export default function EvaluationResults({
       </Card>
 
       {/* URL Card */}
-      <Card className="shadow-lg">
+      <Card className="bg-base-100 shadow-lg">
         <div className="p-6 border-b border-gray-200">
           <p className="text-sm text-gray-600 mb-2">URL vérifiée</p>
           <p className="text-lg font-semibold text-gray-900 break-all">{url}</p>
@@ -107,7 +107,7 @@ export default function EvaluationResults({
       <div className="grid gap-6">
         {/* Passed Checks */}
         {passedResults.length > 0 && (
-          <Card className="shadow-lg">
+          <Card className="bg-base-100 shadow-lg">
             <div className="p-6 border-b border-green-200 bg-green-50">
               <h3 className="text-lg font-semibold text-green-900 flex items-center gap-2">
                 <CheckCircle2 className="w-5 h-5" />
@@ -124,7 +124,7 @@ export default function EvaluationResults({
 
         {/* Failed Checks */}
         {failedResults.length > 0 && (
-          <Card className="shadow-lg">
+          <Card className="bg-base-100 shadow-lg">
             <div className="p-6 border-b border-red-200 bg-red-50">
               <h3 className="text-lg font-semibold text-red-900 flex items-center gap-2">
                 <XCircle className="w-5 h-5" />
