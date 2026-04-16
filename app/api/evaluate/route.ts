@@ -159,6 +159,15 @@ export async function POST(request: NextRequest) {
         passed: $('h1').length == 1
       }
     );
+    results.push(
+      {
+        id: 'apple-icon',
+        name: 'Apple icon',
+        description: "Sur iPhone et iPad, cette icône sera utilisée quand un visiteur ajoute votre page sur son écran d'accueil",
+        severity: 'medium' as const,
+        passed: $('link[rel~="apple-touch-icon"]').length > 0
+      }
+    );
 
     const passedCount = results.filter((r) => r.passed).length;
     const totalCount = results.length;
