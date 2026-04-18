@@ -7,6 +7,13 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://audit.bakpak.fr'),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'fr-FR': '/',
+    },
+  },
   title: 'Audit rapide Bakpak',
   description: "Évaluez la conformité de votre site web aux normes SEO, d'accessibilité et aux meilleures pratiques. Obtenez un retour immédiat sur les normes web essentielles.",
   generator: 'v0.app',
