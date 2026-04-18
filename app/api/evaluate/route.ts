@@ -4,13 +4,15 @@ import type { CheckFn } from './checks/types';
 import { regexChecks } from './checks/regex-checks';
 import { checkH1 } from './checks/h1';
 import { checkFavicon } from './checks/favicon';
-import { checkAppleIcon } from './checks/apple-icon';
+import { checkAppleIcon } from './checks/check-apple-icon';
+import { checkCanonical } from './checks/canonical';
 
 const CHECKS: CheckFn[] = [
   ...regexChecks,
   checkH1,
   checkFavicon,
   checkAppleIcon,
+  checkCanonical,
 ];
 
 // Constants for size limits
