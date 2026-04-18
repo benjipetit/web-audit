@@ -43,6 +43,7 @@ export const EVALUATION_RULES = [
 // Constants for size limits
 const MAX_CONTENT_LENGTH = 5 * 1024 * 1024; // 5MB
 const MAX_FETCH_TIMEOUT = 10000; // 10 seconds
+const MAX_FAVICON_FETCH_TIMEOUT = 3000; // 3 seconds
 
 export async function POST(request: NextRequest) {
   try {
@@ -142,6 +143,43 @@ export async function POST(request: NextRequest) {
 
     const $ = cheerio.load(content);
 
+    // Favicon check:
+    // - Pass if the page declares a favicon via <link rel="... icon ...">
+    // - Otherwise, fall back to checking the default root file: /favicon.ico
+    const faviconDeclared = $('link[rel]').filter((_, el) => {
+      const rel = ($(el).attr('rel') || '').toLowerCase();
+      return rel.split(/\s+/).includes('icon');
+    }).length > 0;
+
+    let faviconPassed = false;
+    if (faviconDeclared) {
+      faviconPassed = true;
+    } else {
+      try {
+        const defaultFaviconUrl = `${urlObj.origin}/favicon.ico`;
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), MAX_FAVICON_FETCH_TIMEOUT);
+
+        try {
+          const faviconResponse = await fetch(defaultFaviconUrl, {
+            method: 'GET',
+            headers: {
+              // Keep the download small when supported by the server.
+              Range: 'bytes=0-2047',
+              'User-Agent': 'Website-Evaluator/1.0 (+https://evaluator.local)',
+            },
+            signal: controller.signal,
+          });
+
+          faviconPassed = faviconResponse.ok;
+        } finally {
+          clearTimeout(timeoutId);
+        }
+      } catch {
+        faviconPassed = false;
+      }
+    }
+
     // Evaluate all rules
     const results = EVALUATION_RULES.map((rule) => ({
       id: rule.id,
@@ -157,6 +195,25 @@ export async function POST(request: NextRequest) {
         description: "La page doit comporter au moins une balise H1. C'est important pour l'accessibilité et le référencement naturel.",
         severity: 'high' as const,
         passed: $('h1').length == 1
+      }
+    );
+    results.push(
+      {
+        id: 'favicon',
+        name: 'Favicon',
+        description:
+          "La page doit avoir une icône (favicon). Elle peut être déclarée via `<link rel=\"... icon ...\">` ou être disponible par défaut via `/favicon.ico`.",
+        severity: 'medium' as const,
+        passed: faviconPassed,
+      }
+    );
+    results.push(
+      {
+        id: 'apple-icon',
+        name: 'Apple icon',
+        description: "Sur iPhone et iPad, cette icône sera utilisée quand un visiteur ajoute votre page sur son écran d'accueil",
+        severity: 'medium' as const,
+        passed: $('link[rel~="apple-touch-icon"]').length > 0
       }
     );
 
