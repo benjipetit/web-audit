@@ -6,6 +6,8 @@ import { checkH1 } from './checks/h1';
 import { checkFavicon } from './checks/favicon';
 import { checkAppleIcon } from './checks/check-apple-icon';
 import { checkCanonical } from './checks/canonical';
+import { checkRobotsTxt } from './checks/robots-txt';
+import { checkSitemapXml } from './checks/sitemap-xml';
 
 const CHECKS: CheckFn[] = [
   ...regexChecks,
@@ -13,6 +15,8 @@ const CHECKS: CheckFn[] = [
   checkFavicon,
   checkAppleIcon,
   checkCanonical,
+  checkRobotsTxt,
+  checkSitemapXml,
 ];
 
 // Constants for size limits
