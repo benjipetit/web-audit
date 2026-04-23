@@ -8,6 +8,7 @@ import { checkAppleIcon } from './checks/check-apple-icon';
 import { checkCanonical } from './checks/canonical';
 import { checkRobotsTxt } from './checks/robots-txt';
 import { checkSitemapXml } from './checks/sitemap-xml';
+import { checkLlmsTxt } from './checks/llms-txt';
 
 const CHECKS: CheckFn[] = [
   ...regexChecks,
@@ -17,6 +18,7 @@ const CHECKS: CheckFn[] = [
   checkCanonical,
   checkRobotsTxt,
   checkSitemapXml,
+  checkLlmsTxt,
 ];
 
 // Constants for size limits
