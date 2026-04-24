@@ -9,6 +9,7 @@ import { checkCanonical } from './checks/canonical';
 import { checkRobotsTxt } from './checks/robots-txt';
 import { checkSitemapXml } from './checks/sitemap-xml';
 import { checkLlmsTxt } from './checks/llms-txt';
+import { checkOpenGraph } from './checks/open-graph';
 
 const CHECKS: CheckFn[] = [
   ...regexChecks,
@@ -19,6 +20,7 @@ const CHECKS: CheckFn[] = [
   checkRobotsTxt,
   checkSitemapXml,
   checkLlmsTxt,
+  checkOpenGraph,
 ];
 
 // Constants for size limits
