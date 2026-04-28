@@ -23,5 +23,6 @@ export const checkCanonical: CheckFn = async ({ $, url }) => {
       "La page doit avoir une URL canonique. Cela permet à Google de mieux comprendre quel lien montrer pour votre page et améliore votre visibilité. Il est préférable de choisir une URL commençant par 'https://'",
     severity: 'high',
     passed,
+    learnMoreUrl: 'https://bakpak.fr/ressources/glossaire/seo/',
   };
 };
