@@ -172,6 +172,19 @@ function ResultItem({ result, passed }: ResultItemProps) {
           </div>
           <p className="text-gray-600 text-sm leading-relaxed">
             {result.description}
+            {result.learnMoreUrl && (
+              <>
+                {' '}
+                <a
+                  href={result.learnMoreUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline whitespace-nowrap"
+                >
+                  En savoir plus →
+                </a>
+              </>
+            )}
           </p>
           {passed && (
             <p className="text-green-700 text-sm mt-2 font-medium">✓ Détecté</p>

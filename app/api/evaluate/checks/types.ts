@@ -8,6 +8,7 @@ export type CheckResult = {
   description: string;
   severity: Severity;
   passed: boolean;
+  learnMoreUrl?: string;
 };
 
 export type PageContext = {

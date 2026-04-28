@@ -43,5 +43,6 @@ export const checkFavicon: CheckFn = async ({ $, url }) => {
       "La page doit avoir une icône (favicon). Elle peut être déclarée via `<link rel=\"... icon ...\">` ou être disponible par défaut via `/favicon.ico`.",
     severity: 'medium',
     passed,
+    learnMoreUrl: 'https://bakpak.fr/ressources/glossaire/site-vitrine/',
   };
 };
